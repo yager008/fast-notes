@@ -1,11 +1,12 @@
 const button = document.getElementById("buttonID");
 const textarea= document.getElementById("textareaID");
+const file = document.getElementById("fileID");
+const textPath= document.getElementById("textPathID");
 
 button.addEventListener("click", () => {
     const str = textarea.value;
     const newStr = str.replace(/\n/g, ' ');
-    alert(newStr);
-    chrome.runtime.sendMessage({cmd: "executeScript", body: newStr}, () => {
+    chrome.runtime.sendMessage({cmd: "executeScript", body: {text: newStr, fileName: file.value, textPath: textPath.value}}, () => {
         // Your callback code here
     });
 });

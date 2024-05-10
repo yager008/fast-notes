@@ -23,25 +23,25 @@ def sendMessage(encodedMessage):
     sys.stdout.buffer.flush()
 
 # to open cmd window:
-# while True:
-#     host = getMessage()
-#     print(host)
-#     scr = "python"
-#     script_path = "script.py"
-#     run_args = ["cmd", "/c", "start", "cmd.exe", "/k", scr, script_path, host]
-#
-#     res = subprocess.run(run_args, stdout=subprocess.PIPE)
-#     sendMessage(encodeMessage(str(res.returncode)))
-
-#not to open cmd window:
 while True:
     host = getMessage()
     print(host)
     scr = "python"
     script_path = "script.py"
-    run_args = [scr, script_path, host]
+    run_args = ["cmd", "/c", "start", "cmd.exe", "/k", scr, script_path, host]
 
-    # Run the script in the background without opening a command prompt window
-    res = subprocess.Popen(run_args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
-    res.communicate()  # Wait for the process to finish
+    res = subprocess.run(run_args, stdout=subprocess.PIPE)
     sendMessage(encodeMessage(str(res.returncode)))
+
+#not to open cmd window: while True:
+# while True:
+#     host = getMessage()
+#     print(host)
+#     scr = "python"
+#     script_path = "script.py"
+#     run_args = [scr, script_path, host]
+#
+#     # Run the script in the background without opening a command prompt window
+#     res = subprocess.Popen(run_args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+#     res.communicate()  # Wait for the process to finish
+#     sendMessage(encodeMessage(str(res.returncode)))

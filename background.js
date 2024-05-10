@@ -4,7 +4,7 @@ const port = chrome.runtime.connectNative("ping");
 //сейчас он вообще на любой месседж откуда либо вызывает нейтив апликейшн
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   console.log(message);
-  console.log(sender);
+//  console.log(sender);
 
   if(message.cmd === "executeScript") {
     port.onMessage.addListener((response) => {
@@ -17,7 +17,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (processing) return;
     console.log("hostname=" + message.hostname)
     processing = true;
-    port.postMessage(message.body);
+    port.postMessage(message.body.textPath + " " + message.body.fileName + " " + message.body.text);
 
     return true;
   }
