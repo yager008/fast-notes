@@ -1,0 +1,3 @@
+Windows Registry Editor Version 5.00
+[HKEY_CURRENT_USER\Software\Google\Chrome\NativeMessagingHosts\ping]
+@="C:\\Users\\yaro_\\Downloads\\Chapter62_MV3\\ping.json"

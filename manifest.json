@@ -1,0 +1,33 @@
+﻿{
+  "name": "Chapter 62 (MV3) Native messaging",
+  "manifest_version": 3,
+  "version": "1.0",
+  "permissions": [
+    "activeTab",
+    "nativeMessaging"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "all_frames": true,
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content-script.js"
+      ]
+    }
+  ],
+  "host_permissions": ["https://stackoverflow.com/*", "https://vk.com/*"],
+  "web_accessible_resources": [
+    {
+      "resources": ["content-script.css", "execute.js", "onClickScript.js", "background.js" , "onceATimeScript.js", "openPanel.js", "popupButtonHello.js"],
+      "matches": ["https://stackoverflow.com/*", "https://vk.com/*"]
+    }
+  ]
+}
