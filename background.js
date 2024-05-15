@@ -26,6 +26,8 @@ chrome.storage.local.set({ previousLink: 'C:/Users/Default' });
 chrome.storage.local.get(["previousLink"], (result) => {
   key1value = result.previousLink;
   console.log("previous link: " + key1value);
+
+  return true;
 });
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -39,11 +41,25 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       sendResponse({ value: previousLinks, previousLink: previousLink });
     });
 
+    // Return true here to indicate that sendResponse will be called asynchronously
+    return true;
+  }
+
+  if (message.cmd === "updateOptionScript") {
+    console.log(message.body.arrayOfOptions);
+    console.log("shlepa");
+
+    chrome.storage.local.set({ previousLinks: message.body.arrayOfOptions});
+
+    // Return true here to indicate that sendResponse will be called asynchronously
     return true;
   }
 
   if (message.cmd === "executeScript") {
+
+
     if (processing) return;
+
 
     processing = true;
 
@@ -63,11 +79,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         console.log('Value already exists in the array');
         console.log(previousLinks);
       }
+
+      // Call sendResponse here to send back the response asynchronously
+      sendResponse(true);
     });
 
     console.log("hostname=" + message.hostname)
     port.postMessage(message.body.textPath + " " + message.body.text);
 
+    // Return true here to indicate that sendResponse will be called asynchronously
     return true;
   }
 });

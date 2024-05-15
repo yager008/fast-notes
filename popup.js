@@ -40,23 +40,41 @@ chrome.runtime.sendMessage({cmd: "popupOpened", body: {}}, (response) => {
         // Handle error, e.g., display a default message
         El.innerHTML = "Error: No valid response received.";
     }
+
+    return true;
 });
+
 dropBox.addEventListener('change', function() {
     textPathContent.value = this.value;
 
     return true;
 });
 
+const removeOptionButton = document.getElementById("removeOptionButtonID");
+removeOptionButton.addEventListener('click', function() {
+    const curTextValue = document.getElementById("textPathID").value;
+
+    let select = document.getElementById("dropdown");
+    for (let i = 0; i < select.options.length; i++) {
+        if (select.options[i].value === curTextValue) {
+            select.remove(i);
+            break;
+        }
+    }
+
+
+    return true;
+});
+
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.cmd === "animationSuccess") {
         const loaderRef = document.getElementById("loaderID");
         success(loaderRef);
-
     }
     if (message.cmd === "animationFail") {
         const loaderRef = document.getElementById("loaderID");
         fail(loaderRef);
     }
-
     return true;
 });
