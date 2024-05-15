@@ -23,7 +23,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 //  console.log(sender);
 
   if (message.cmd === "popupOpened") {
-
     chrome.storage.local.get(["previousLinks", "previousLink"], (result) => {
       const previousLinks = result.previousLinks;
       const previousLink = result.previousLink;
@@ -34,12 +33,22 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true;
   }
 
+  port.onMessage.addListener((response) => {
+    console.log("Received: " + response);
+    sendResponse({ value: response, cmd: "animationSuccess" });
+
+    chrome.runtime.sendMessage({cmd: "animationSuccess"});
+    if (response === 0) {
+    }
+
+    if (response === 1) {
+      chrome.runtime.sendMessage({cmd: "animationFail"});
+    }
+
+    processing = false;
+  });
+
   if(message.cmd === "executeScript") {
-    port.onMessage.addListener((response) => {
-      console.log("Received: " + response);
-      sendResponse({ value: response });
-      processing = false;
-    });
 
     chrome.storage.local.set({ previousLink: message.body.textPath}).then(() => {
     });

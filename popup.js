@@ -44,3 +44,12 @@ chrome.runtime.sendMessage({cmd: "popupOpened", body: {}}, (response) => {
 dropBox.addEventListener('change', function() {
     textPathContent.value = this.value;
 });
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.cmd === "animationSuccess") {
+        alert('success');
+    }
+    if (message.cmd === "animationFail") {
+        alert('fail');
+    }
+});
