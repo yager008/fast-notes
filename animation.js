@@ -4,8 +4,14 @@ function addLoader() {
     span.className = 'loader';
     document.body.appendChild(span);
 
-    setTimeout(() => fail(), 2000);
-} addLoader()
+    setTimeout(() => removeLoader(span), 2000);
+}
+
+function removeLoader(span) {
+    if (span && span.parentNode) {
+        span.parentNode.removeChild(span);
+    }
+}
 
 const loader = document.querySelector('.loader');
 

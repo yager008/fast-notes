@@ -41,13 +41,19 @@ def main():
 #     file_path = r"E:/Obsidian Vault/" + current_date + ".md"
 
 
-    with open(file_path, "a", encoding="utf-8") as file:  # Specify encoding
-        file.write(rest_of_words + "\n")
+
+    try:
+        with open(file_path, "a", encoding="utf-8") as file:  # Specify encoding
+            file.write(rest_of_words + "\n")
+    except Exception as e:
+        print(f"Error fucking sheet: {e}")
+        sys.exit(1)
 
     sys.exit(0)
 
     # Start the batch script to close the command prompt window after 3 seconds
 #     subprocess.run(["exit_cmd.bat"], stdout=subprocess.PIPE)
+
 
 if __name__ == "__main__":
     main()

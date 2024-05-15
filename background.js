@@ -37,12 +37,16 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     console.log("Received: " + response);
     sendResponse({ value: response, cmd: "animationSuccess" });
 
-    chrome.runtime.sendMessage({cmd: "animationSuccess"});
-    if (response === 0) {
+    if (response === "0") {
+      chrome.runtime.sendMessage({cmd: "animationSuccess"});
+      console.log("success");
+      console.log(message);
     }
 
-    if (response === 1) {
+    if (response === "1") {
       chrome.runtime.sendMessage({cmd: "animationFail"});
+      console.log("fail");
+      console.log(message);
     }
 
     processing = false;
