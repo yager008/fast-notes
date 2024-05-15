@@ -15,33 +15,33 @@ def main():
     SOME_VALUE = ' '.join(sys.argv[1:])
     print("You entered:", SOME_VALUE)
 
-    words = SOME_VALUE.split(' ', 2)
+    words = SOME_VALUE.split(' ', 1)
 
     for index, value in enumerate(words):
        print("S1_vec('{}')<= {}".format(index, value))
 
     first_word = words[0]
-    second_word = words[1]
-    print("second word:", second_word )
-    rest_of_words = words[2] if len(words) > 2 else ''
+#     second_word = words[1]
+#     print("second word:", second_word )
+    rest_of_words = words[1] if len(words) > 1 else ''
 
     file_path = first_word
 
-    fake_file_path = second_word
-    file_name = os.path.basename(fake_file_path)
+#     fake_file_path = second_word
+#     file_name = os.path.basename(fake_file_path)
 
     transformed_file_path = transform_file_path(file_path)
-    print("FILE path:", transformed_file_path)
-    print("FILE name:", file_name)
-    final_file_path_with_name = transformed_file_path + file_name
-    print("final FILE: ", file_path + file_name)
+    print("FILE path:", file_path)
+#     print("FILE name:", file_name)
+#     final_file_path_with_name = transformed_file_path + file_name
+#     print("final FILE: ", file_path + file_name)
     print("TEXT:", rest_of_words)
 
 #     current_date = datetime.now().strftime("%Y-%m-%d")
 #     file_path = r"E:/Obsidian Vault/" + current_date + ".md"
 
 
-    with open(final_file_path_with_name, "a", encoding="utf-8") as file:  # Specify encoding
+    with open(file_path, "a", encoding="utf-8") as file:  # Specify encoding
         file.write(rest_of_words + "\n")
 
     sys.exit(0)

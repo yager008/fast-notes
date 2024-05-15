@@ -1,13 +1,11 @@
-
-
 //test SendMessagesButton
 const buttonTest= document.createElement('div');
 buttonTest.setAttribute('class', 'post block bc2');
 buttonTest.innerHTML = `
 <form>
     <input type="button" id="helloButton" value="123213ello"> 
-</form>
-`;
+</form> `;
+
 document.body.appendChild(buttonTest);
 
 const helloButton= document.getElementById("helloButton");
