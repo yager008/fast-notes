@@ -43,13 +43,20 @@ chrome.runtime.sendMessage({cmd: "popupOpened", body: {}}, (response) => {
 });
 dropBox.addEventListener('change', function() {
     textPathContent.value = this.value;
+
+    return true;
 });
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.cmd === "animationSuccess") {
-        alert('success');
+        const loaderRef = document.getElementById("loaderID");
+        success(loaderRef);
+
     }
     if (message.cmd === "animationFail") {
-        alert('fail');
+        const loaderRef = document.getElementById("loaderID");
+        fail(loaderRef);
     }
+
+    return true;
 });

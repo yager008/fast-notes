@@ -1,10 +1,10 @@
-
 function addLoader() {
     let span = document.createElement('span');
     span.className = 'loader';
+    span.id = 'loaderID';
     document.body.appendChild(span);
-
-    setTimeout(() => removeLoader(span), 2000);
+    setTimeout(() => removeLoader(span), 800);
+    return span;
 }
 
 function removeLoader(span) {
@@ -13,16 +13,17 @@ function removeLoader(span) {
     }
 }
 
-const loader = document.querySelector('.loader');
-
-function fail() {
+function fail(loader) {
     loader.classList.add('fail');
+    setTimeout(() => removeLoader(loader), 800);
 }
-function success() {
+
+function success(loader) {
     loader.classList.add('success');
+    setTimeout(() => removeLoader(loader), 800);
 }
 
-function reset() {
-    loader.classList.remove('fail')
+function reset(loader) {
+    loader.classList.remove('fail');
+    loader.classList.remove('success');
 }
-

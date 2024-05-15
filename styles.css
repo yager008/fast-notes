@@ -30,7 +30,7 @@
     transform: rotate(-45deg);
     transform-origin: 0% 50%;
     border-radius: 5px;
-    animation: baseGrow 0.5s;
+    animation: baseGrow 0.3s;
     content: '';
 }
 .loader.success::after {
@@ -43,7 +43,7 @@
     transform: rotate(-135deg);
     transform-origin: -5% 55%;
     border-radius: 5px;
-    animation: tipGrow 0.5s;
+    animation: tipGrow 0.2s;
     content: '';
 }
 .loader.fail::before {
@@ -56,7 +56,7 @@
     transform: rotate(45deg);
     position: absolute;
     border-radius: 10px;
-    animation: leftIn 0.3s linear;
+    animation: leftIn 0.1s linear;
 }
 .loader.fail::after {
     width: 3rem;
@@ -68,7 +68,7 @@
     transform: rotate(-45deg);
     position: absolute;
     border-radius: 10px;
-    animation: rightIn 0.3s linear;
+    animation: rightIn 0.1s linear;
 }
 .loader.success, .loader.fail {
     animation: pop 1.2s ease-in-out;
