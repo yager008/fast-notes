@@ -1,4 +1,3 @@
-//test SendMessagesButton
 const buttonTest= document.createElement('div');
 buttonTest.setAttribute('class', 'post block bc2');
 buttonTest.innerHTML = `
@@ -73,23 +72,10 @@ function addOpenPanelScript() {
     scriptEl.src = chrome.runtime.getURL("openPanel.js");
     document.body.appendChild(scriptEl);
 }
-// content.js
 
-// Function to send message to background script
 function sendMessageToBackground(message) {
     chrome.runtime.sendMessage({type: "youtube_time_request", data: message});
 }
-
-// Listen for changes in the video player
-// function listenForChanges() {
-//     setInterval(() => {
-//         const video = document.querySelector('video');
-//         if (video) {
-//             const currentTime = video.currentTime;
-//             sendMessageToBackground(currentTime);
-//         }
-//     }, 1000); // Check every second
-// }
 
 function getCurrentVideoTime() {
     const video = document.querySelector('video');
@@ -99,20 +85,22 @@ function getCurrentVideoTime() {
         }
 }
 
-// Start listening for changes when the document is ready
-document.addEventListener('DOMContentLoaded', () => {
-    alert('contentscript loaded')
-});
-
-alert('contentscript loaded')
-
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    alert(message.cmd);
+    if (message.cmd === "getVideoURL") {
+        const video = document.querySelector('video');
 
-    if (message.cmd === "getVideoTimeFromContentScript") {
-        alert("message from pop up")
-        sendResponse({body: "amogus response"});
+        let currentTime = 0;
 
-        return true;
+        if (video) {
+            currentTime = video.currentTime;
+            const roundedTime= video.currentTime;
+            sendResponse({body: roundedTime});
+        }
+        else {
+            sendResponse({body: 'no video found'});
+        }
+
+
     }
+    return true;
 });

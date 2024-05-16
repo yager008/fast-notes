@@ -93,12 +93,13 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     // Sending message to content script
     chrome.runtime.sendMessage({cmd: "getVideoTimeFromContentScript"}, (response) => {
-      console.log('response from content to background', response);
 
       if (response && response.body) {
+        console.log("response from content script: " + response.body)
         sendResponse({body: response.body}); // Send the response back to the popup
       } else {
-        sendResponse({error: "Response is undefined or does not have expected structure"}); // Send an error response
+        console.log("Response is undefined or does not have expected structure")
+        sendResponse({body: "Response is undefined or does not have expected structure"}); // Send an error response
       }
     });
     return true;
