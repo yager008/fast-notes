@@ -1,7 +1,6 @@
 let processing = false;
 const port = chrome.runtime.connectNative("ping");
 
-// Function to handle response from the native application
 function handleResponse(response) {
   console.log("Received: " + response);
 
@@ -80,14 +79,29 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         console.log(previousLinks);
       }
 
-      // Call sendResponse here to send back the response asynchronously
       sendResponse(true);
     });
 
     console.log("hostname=" + message.hostname)
     port.postMessage(message.body.textPath + " " + message.body.text);
 
-    // Return true here to indicate that sendResponse will be called asynchronously
     return true;
   }
+
+  if (message.cmd === "getVideoTime") {
+    console.log("get video time in background script");
+
+    // Sending message to content script
+    chrome.runtime.sendMessage({cmd: "getVideoTimeFromContentScript"}, (response) => {
+      console.log('response from content to background', response);
+
+      if (response && response.body) {
+        sendResponse({body: response.body}); // Send the response back to the popup
+      } else {
+        sendResponse({error: "Response is undefined or does not have expected structure"}); // Send an error response
+      }
+    });
+    return true;
+  }
+
 });

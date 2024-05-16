@@ -78,3 +78,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     }
     return true;
 });
+
+// chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+//     if (message.cmd === "current_time") {
+//         const timeWatchedElement = document.getElementById("timeWatched");
+//         const timeWatched = Math.floor(message.data);
+//         timeWatchedElement.textContent = `Time watched: ${timeWatched} seconds`;
+//     }
+// });
