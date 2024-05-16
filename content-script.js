@@ -1,3 +1,14 @@
+function formatTime(seconds) {
+    let minutes = Math.floor(seconds / 60);
+    let remainingSeconds = Math.floor(seconds % 60);
+
+    // Add leading zero if seconds is less than 10
+    remainingSeconds = remainingSeconds < 10 ? "0" + remainingSeconds : remainingSeconds;
+
+    return minutes + ":" + remainingSeconds;
+}
+
+
 const buttonTest= document.createElement('div');
 buttonTest.setAttribute('class', 'post block bc2');
 buttonTest.innerHTML = `
@@ -33,7 +44,6 @@ div.innerHTML = `
 </div>
 `;
 document.body.appendChild(div);
-//addOnceATimeScript();
 
 //Dialog
 const updateButton = document.getElementById("updateDetails");
@@ -73,18 +83,6 @@ function addOpenPanelScript() {
     document.body.appendChild(scriptEl);
 }
 
-function sendMessageToBackground(message) {
-    chrome.runtime.sendMessage({type: "youtube_time_request", data: message});
-}
-
-function getCurrentVideoTime() {
-    const video = document.querySelector('video');
-    if (video) {
-        const currentTime = video.currentTime;
-        sendMessageToBackground(currentTime);
-        }
-}
-
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.cmd === "getVideoURL") {
         const video = document.querySelector('video');
@@ -93,14 +91,18 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
         if (video) {
             currentTime = video.currentTime;
-            const roundedTime= video.currentTime;
-            sendResponse({body: roundedTime});
+            let roundedTime = Math.round(currentTime); // Round the currentTime to the nearest integer
+// Example usage:
+            let formattedTime = formatTime(roundedTime);
+
+            sendResponse({body: formattedTime});
+
+
+
         }
         else {
             sendResponse({body: 'no video found'});
         }
-
-
     }
     return true;
 });

@@ -1,20 +1,3 @@
-//
-// const textPathContent = document.getElementById("textPathID");
-// const dropBox = document.getElementById("dropdown");
-//
-// chrome.runtime.sendMessage({cmd: "popupOpened", body: {}}, (response) => {
-//     const El = document.getElementById("amogus");
-//     if (response && response.value !== undefined) {
-//         El.innerHTML = response.value;
-//         console.log(response.value);
-//         textPathContent.value = response.value;
-//         dropBox.
-//     } else {
-//         console.error("Error: No valid response received.");
-//         // Handle error, e.g., display a default message
-//         El.innerHTML = "Error: No valid response received.";
-//     }
-// });
 const textPathContent = document.getElementById("textPathID");
 const dropBox = document.getElementById("dropdown");
 
@@ -53,7 +36,6 @@ dropBox.addEventListener('change', function() {
 const removeOptionButton = document.getElementById("removeOptionButtonID");
 removeOptionButton.addEventListener('click', function() {
     const curTextValue = document.getElementById("textPathID").value;
-
     let select = document.getElementById("dropdown");
     for (let i = 0; i < select.options.length; i++) {
         if (select.options[i].value === curTextValue) {
@@ -61,11 +43,8 @@ removeOptionButton.addEventListener('click', function() {
             break;
         }
     }
-
-
     return true;
 });
-
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.cmd === "animationSuccess") {
@@ -78,11 +57,3 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     }
     return true;
 });
-
-// chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-//     if (message.cmd === "current_time") {
-//         const timeWatchedElement = document.getElementById("timeWatched");
-//         const timeWatched = Math.floor(message.data);
-//         timeWatchedElement.textContent = `Time watched: ${timeWatched} seconds`;
-//     }
-// });
