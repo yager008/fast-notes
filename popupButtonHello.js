@@ -17,41 +17,87 @@ const textPath = document.getElementById("textPathID");
 const updateButton = document.getElementById("updateOptionListButtonID")
 const dropBoxDown= document.getElementById("dropdown")
 
-
-
 button.addEventListener("click", () => {
+
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const day = String(currentDate.getDate()).padStart(2, '0'); // Get the day and pad with leading zero if needed
+    const formattedDate = `${year}-${month}-${day}`;
     const arrayOfOptions = extractOptions("dropdown");
-    addLoader()
+
+    addLoader();
     const str = textarea.value;
-    const newStr = str.replace(/\n/g, ' ');
+    const textPathValue = textPath.value;
+    if (textPathValue.includes("{hostname}")) {
+        getCurrentTabUrl(function(url) {
+            // let formattedTextPathValue = textPathValue.replace("{today}", formattedDate + ".md");
 
+            let fullURL = new URL(url);
 
-    if (textarea.value !== "") {
-        chrome.runtime.sendMessage({cmd: "executeScript", body: {text: newStr, textPath: textPath.value, arrayOfOptions: arrayOfOptions}}, () => {
-            // Your callback code here
+            let siteName = fullURL.hostname;
+
+            let formattedTextPathValue = textPathValue.replace("{hostname}", siteName + ".md");
+
+            alert(formattedTextPathValue);
+
+            if (textarea.value !== "") {
+                chrome.runtime.sendMessage({cmd: "executeScript", body: {text: str, textPath: formattedTextPathValue, arrayOfOptions: arrayOfOptions}}, () => {
+                    // Your callback code here
+                });
+            }
+            else {
+                alert('nothing to send');
+            }
+
+            const option = document.createElement('option');
+            option.value = textPath.value;
+            option.textContent = textPath.value;
+
+            let bOptionExist = false;
+            const allOptions = document.getElementsByTagName("option")
+            for (let i = 0; i < allOptions.length; i++) {
+                if (allOptions[i].value === option.value) {
+                    bOptionExist = true;
+                }
+            }
+
+            if(!bOptionExist) {
+                dropBoxDown.appendChild(option);
+                alert("option added");
+            }
         });
     }
     else {
-        alert('nothing to send');
-    }
+        let formattedTextPathValue = textPathValue.replace("{today}", formattedDate + ".md");
 
-    const option = document.createElement('option');
-    option.value = textPath.value;
-    option.textContent = textPath.value;
-
-    let bOptionExist = false;
-    const allOptions = document.getElementsByTagName("option")
-    for (let i = 0; i < allOptions.length; i++) {
-        if (allOptions[i].value === option.value) {
-            bOptionExist = true;
+        if (textarea.value !== "") {
+            chrome.runtime.sendMessage({cmd: "executeScript", body: {text: str, textPath: formattedTextPathValue, arrayOfOptions: arrayOfOptions}}, () => {
+                // Your callback code here
+            });
         }
-    }
+        else {
+            alert('nothing to send');
+        }
 
-    if(!bOptionExist) {
-        dropBoxDown.appendChild(option);
-        alert("option added");
-    }
+        const option = document.createElement('option');
+        option.value = textPath.value;
+        option.textContent = textPath.value;
 
+        let bOptionExist = false;
+        const allOptions = document.getElementsByTagName("option")
+        for (let i = 0; i < allOptions.length; i++) {
+            if (allOptions[i].value === option.value) {
+                bOptionExist = true;
+            }
+        }
+
+        if(!bOptionExist) {
+            dropBoxDown.appendChild(option);
+            alert("option added");
+        }
+
+    }
 });
 updateButton.addEventListener("click", () => {
     const arrayOfOptions = extractOptions("dropdown");

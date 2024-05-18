@@ -8,6 +8,7 @@ function getCurrentTabUrl(callback) {
         let tab = tabs[0];
         let url = tab.url;
         callback(url);
+        return true;
     });
 }
 
