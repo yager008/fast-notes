@@ -56,9 +56,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
   if (message.cmd === "executeScript") {
 
-
     if (processing) return;
-
 
     processing = true;
 

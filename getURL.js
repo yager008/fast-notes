@@ -1,3 +1,5 @@
+const checkboxURL = document.getElementById("checkboxURLID");
+
 // Function to get the current tab URL
 function getCurrentTabUrl(callback) {
     // Query the active tab
@@ -15,6 +17,11 @@ const getURLButton = document.getElementById("pasteURLButtonID");
 getURLButton.addEventListener('click', function() {
     getCurrentTabUrl(function(url) {
         const inputText = document.getElementById('textareaID');
-        inputText.value = url + " " + inputText.value;
+        if (checkboxURL.checked) {
+            inputText.value = "[[" + url + "]] " + inputText.value;
+        }
+        else {
+            inputText.value = url + " " + inputText.value;
+        }
     });
 });

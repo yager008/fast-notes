@@ -3,9 +3,9 @@ import subprocess
 import os
 from datetime import datetime
 
-def transform_file_path(file_path):
-    transformed_path = file_path.replace("\\", "\\\\")
-    return transformed_path
+# def transform_file_path(file_path):
+#     transformed_path = file_path.replace("\\", "\\\\")
+#     return transformed_path
 
 def main():
     if len(sys.argv) < 2:
@@ -30,7 +30,7 @@ def main():
 #     fake_file_path = second_word
 #     file_name = os.path.basename(fake_file_path)
 
-    transformed_file_path = transform_file_path(file_path)
+#     transformed_file_path = transform_file_path(file_path)
     print("FILE path:", file_path)
 #     print("FILE name:", file_name)
 #     final_file_path_with_name = transformed_file_path + file_name

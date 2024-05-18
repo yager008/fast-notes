@@ -1,5 +1,8 @@
 const textPathContent = document.getElementById("textPathID");
+const textareavalue = document.getElementById("textareaID");
 const dropBox = document.getElementById("dropdown");
+const removeTextCheckbox= document.getElementById("checkboxID");
+
 
 chrome.runtime.sendMessage({cmd: "popupOpened", body: {}}, (response) => {
     const El = document.getElementById("amogus");
@@ -50,6 +53,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.cmd === "animationSuccess") {
         const loaderRef = document.getElementById("loaderID");
         success(loaderRef);
+        if (removeTextCheckbox.checked) {
+            textareavalue.value = '';
+        }
     }
     if (message.cmd === "animationFail") {
         const loaderRef = document.getElementById("loaderID");

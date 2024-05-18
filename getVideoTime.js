@@ -6,13 +6,10 @@ getTimeButton.addEventListener('click', function() {
         chrome.tabs.sendMessage(tabs[0].id, { cmd: "getVideoURL" }, (response) => {
             if (response && response.body) {
                 timeWatchedElement.innerText = response.body;
-
                 const inputText = document.getElementById('textareaID');
-
                 if (!Number.isNaN(response.body)) {
                     inputText.value = inputText.value + " " + response.body;
                 }
-
             } else {
                 timeWatchedElement.innerText = "Error: Response is undefined or does not have expected structure";
             }

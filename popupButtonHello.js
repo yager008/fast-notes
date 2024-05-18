@@ -20,27 +20,42 @@ const dropBoxDown= document.getElementById("dropdown")
 
 
 button.addEventListener("click", () => {
-
     const arrayOfOptions = extractOptions("dropdown");
-
     addLoader()
     const str = textarea.value;
     const newStr = str.replace(/\n/g, ' ');
-    chrome.runtime.sendMessage({cmd: "executeScript", body: {text: newStr, textPath: textPath.value, arrayOfOptions: arrayOfOptions}}, () => {
-        // Your callback code here
-    });
+
+
+    if (textarea.value !== "") {
+        chrome.runtime.sendMessage({cmd: "executeScript", body: {text: newStr, textPath: textPath.value, arrayOfOptions: arrayOfOptions}}, () => {
+            // Your callback code here
+        });
+    }
+    else {
+        alert('nothing to send');
+    }
 
     const option = document.createElement('option');
     option.value = textPath.value;
     option.textContent = textPath.value;
-    dropBoxDown.appendChild(option);
+
+    let bOptionExist = false;
+    const allOptions = document.getElementsByTagName("option")
+    for (let i = 0; i < allOptions.length; i++) {
+        if (allOptions[i].value === option.value) {
+            bOptionExist = true;
+        }
+    }
+
+    if(!bOptionExist) {
+        dropBoxDown.appendChild(option);
+        alert("option added");
+    }
 
 });
 updateButton.addEventListener("click", () => {
-
     const arrayOfOptions = extractOptions("dropdown");
-
-    addLoader()
+    addLoader();
     const str = textarea.value;
     const newStr = str.replace(/\n/g, ' ');
     chrome.runtime.sendMessage({cmd: "updateOptionScript", body: {text: newStr, textPath: textPath.value, arrayOfOptions: arrayOfOptions}}, () => {
