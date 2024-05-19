@@ -84,6 +84,10 @@ function addOpenPanelScript() {
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.cmd === "popupClosed") {
+        alert("popup closed");
+    }
+
     if (message.cmd === "getVideoURL") {
         const video = document.querySelector('video');
 
@@ -96,9 +100,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             let formattedTime = formatTime(roundedTime);
 
             sendResponse({body: formattedTime});
-
-
-
         }
         else {
             sendResponse({body: 'no video found'});

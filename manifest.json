@@ -33,5 +33,13 @@
         "popup.js", "styles.css", "animation.js", "getURL.js", "getVideoTime.js" ],
       "matches": ["https://stackoverflow.com/*", "https://vk.com/*"]
     }
-  ]
+  ],
+  "commands": {
+    "popup": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y"
+      },
+      "description" : "open popup"
+    }
+  }
 }

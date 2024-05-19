@@ -28,6 +28,7 @@ button.addEventListener("click", () => {
 
     addLoader();
     const str = textarea.value;
+    let formattedStr = str.replace(/\r?\n/g, '\\n');
     const textPathValue = textPath.value;
     if (textPathValue.includes("{hostname}")) {
         getCurrentTabUrl(function(url) {
@@ -42,7 +43,7 @@ button.addEventListener("click", () => {
             alert(formattedTextPathValue);
 
             if (textarea.value !== "") {
-                chrome.runtime.sendMessage({cmd: "executeScript", body: {text: str, textPath: formattedTextPathValue, arrayOfOptions: arrayOfOptions}}, () => {
+                chrome.runtime.sendMessage({cmd: "executeScript", body: {text: formattedStr, textPath: formattedTextPathValue, arrayOfOptions: arrayOfOptions}}, () => {
                     // Your callback code here
                 });
             }
@@ -72,7 +73,7 @@ button.addEventListener("click", () => {
         let formattedTextPathValue = textPathValue.replace("{today}", formattedDate + ".md");
 
         if (textarea.value !== "") {
-            chrome.runtime.sendMessage({cmd: "executeScript", body: {text: str, textPath: formattedTextPathValue, arrayOfOptions: arrayOfOptions}}, () => {
+            chrome.runtime.sendMessage({cmd: "executeScript", body: {text: formattedStr, textPath: formattedTextPathValue, arrayOfOptions: arrayOfOptions}}, () => {
                 // Your callback code here
             });
         }

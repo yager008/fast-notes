@@ -44,7 +44,8 @@ def main():
 
     try:
         with open(file_path, "a", encoding="utf-8") as file:  # Specify encoding
-            file.write(rest_of_words + "\n")
+            escaped_text = rest_of_words.encode('utf-8').decode('unicode_escape')
+            file.write(escaped_text + "\n")
     except Exception as e:
         print(f"Error fucking sheet: {e}")
         sys.exit(1)

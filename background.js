@@ -1,3 +1,12 @@
+chrome.windows.onFocusChanged.addListener((windowId) => {
+    chrome.runtime.sendMessage({cmd: "popupClosed"}).then(r =>{
+      console.log("popup closed");
+      return false;
+    });
+    return false;
+});
+
+
 let processing = false;
 const port = chrome.runtime.connectNative("ping");
 
