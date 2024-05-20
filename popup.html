@@ -3,11 +3,66 @@
 <html>
 
 <head>
-  <style type="text/css">
-    * {
-      font-size: x-large;
+<!--  <style type="text/css">-->
+<!--    * {-->
+<!--      font-size: x-large;-->
+<!--    }-->
+<!--  </style>-->
+  <style>
+    body {
+      background: repeating-linear-gradient(
+              45deg,           /* Angle of the stripes */ #e1e0e0,         /* First stripe color */ #d8d8d8 10px,    /* Width of the first stripe */
+              #ffffff 10px,    /* Start of second stripe color */
+              #ffffff 20px     /* Width of the second stripe */
+      );
+    }
+
+    dialog {
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      max-width: 300px;
+      text-align: center;
+    }
+
+    dialog::backdrop {
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    dialog p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      font-size: 16px;
+      padding: 10px 20px;
+      margin: 0 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #no {
+      background-color: #f44336;
+      color: white;
+    }
+
+    #yes {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    #no:hover {
+      background-color: #d32f2f;
+    }
+
+    #yes:hover {
+      background-color: #388E3C;
     }
   </style>
+
 </head>
 
 <body style="min-width:300px">
@@ -51,6 +106,16 @@
 
 <p id="timeWatched">time watched</p>
 
+<dialog id="favDialog">
+  <form method="dialog">
+    <p>Create new file?</p>
+    <div>
+      <button id="no" type="reset">No</button>
+      <button id="yes" type="submit">Yes</button>
+    </div>
+  </form>
+</dialog>
+
 </html>
 
 <script src="getURL.js"></script>
@@ -58,3 +123,4 @@
 <script src="popupButtonHello.js"></script>
 <script src="popup.js"></script>
 <script src="animation.js"></script>
+<script src="noFileFound.js"></script>

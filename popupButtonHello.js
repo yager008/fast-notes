@@ -54,7 +54,6 @@ button.addEventListener("click", () => {
             const option = document.createElement('option');
             option.value = textPath.value;
             option.textContent = textPath.value;
-
             let bOptionExist = false;
             const allOptions = document.getElementsByTagName("option")
             for (let i = 0; i < allOptions.length; i++) {

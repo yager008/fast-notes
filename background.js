@@ -1,26 +1,28 @@
-chrome.windows.onFocusChanged.addListener((windowId) => {
-    chrome.runtime.sendMessage({cmd: "popupClosed"}).then(r =>{
-      console.log("popup closed");
-      return false;
-    });
-    return false;
-});
-
+// chrome.windows.onFocusChanged.addListener((windowId) => {
+//     chrome.runtime.sendMessage({cmd: "popupClosed"}).then(r =>{
+//       console.log("popup closed");
+//       return false;
+//     });
+//     return false;
+// })
+// ;
 
 let processing = false;
 const port = chrome.runtime.connectNative("ping");
 
 function handleResponse(response) {
   console.log("Received: " + response);
-
   if (response === "0") {
     chrome.runtime.sendMessage({ cmd: "animationSuccess" });
     console.log("success");
   }
-
   if (response === "1") {
     chrome.runtime.sendMessage({ cmd: "animationFail" });
     console.log("fail");
+  }
+  if (response === "2") {
+    chrome.runtime.sendMessage({ cmd: "noFileFound" });
+    console.log("no file found");
   }
 
   processing = false;
@@ -39,14 +41,30 @@ chrome.storage.local.get(["previousLink"], (result) => {
 });
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  console.log(message);
+  if (message.cmd === "textAreaUpdated") {
+    chrome.storage.local.set({textAreaBuffer: message.body.text}).then(r =>{
+      chrome.storage.local.get(["textAreaBuffer"], (result) => {
+        // console.log(result.textAreaBuffer);
+      });
+    });
+  }
+
+  if (message.cmd === "textPathUpdated") {
+    chrome.storage.local.set({textPathBuffer: message.body.text}).then(r =>{
+      chrome.storage.local.get(["textPathBuffer"], (result) => {
+        // console.log(result.textPathBuffer);
+      });
+    });
+  }
 
   if (message.cmd === "popupOpened") {
-    chrome.storage.local.get(["previousLinks", "previousLink"], (result) => {
+    chrome.storage.local.get(["previousLinks", "previousLink", "textAreaBuffer", "textPathBuffer"], (result) => {
       const previousLinks = result.previousLinks;
       const previousLink = result.previousLink;
+      const textAreaBuffer = result.textAreaBuffer;
+      const textPathBuffer = result.textPathBuffer;
 
-      sendResponse({ value: previousLinks, previousLink: previousLink });
+      sendResponse({ value: previousLinks, previousLink: previousLink, textAreaBuffer: textAreaBuffer, textPathBuffer: textPathBuffer});
     });
 
     // Return true here to indicate that sendResponse will be called asynchronously
