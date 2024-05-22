@@ -64,14 +64,46 @@ document.addEventListener('DOMContentLoaded', () => {
     removeOptionButton.addEventListener('click', function() {
         const curTextValue = document.getElementById("textPathID").value;
         let select = document.getElementById("dropdown");
+        let bTest = false;
+        let alloptionsstring = "";
+
+        for (let i = 0; i < select.options.length; i++) {
+            alloptionsstring = alloptionsstring + " id: " + i + " " + select.options[i].value;
+        }
+
         for (let i = 0; i < select.options.length; i++) {
             if (select.options[i].value === curTextValue) {
                 select.remove(i);
+                bTest = true;
                 break;
             }
         }
+
+        if(!bTest) {
+            alert ("no found" + "curTextValue: " + curTextValue + "./select.options[0]: " + select.options[0]);
+        }
+
+        updateOptionList();
         return true;
     });
+
+    // document.getElementById('removeOptionButton').addEventListener('click', function() {
+    //     const curTextValue = document.getElementById("textPathID").value;
+    //     let select = document.getElementById("dropdown");
+    //     let bTest = false;
+    //
+    //     for (let i = 0; i < select.options.length; i++) {
+    //         if (select.options[i].value === curTextValue) {
+    //             select.remove(i);
+    //             bTest = true;
+    //             break;
+    //         }
+    //     }
+    //
+    //     if (!bTest) {
+    //         alert("not found");
+    //     }
+    // });
 
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         if (message.cmd === "animationSuccess") {

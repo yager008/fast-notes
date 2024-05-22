@@ -48,6 +48,7 @@ function sendDataToBackground(bCreateFileIfNotExist) {
 
         let bOptionExist = false;
         const allOptions = document.getElementsByTagName("option");
+
         for (let i = 0; i < allOptions.length; i++) {
             if (allOptions[i].value === option.value) {
                 bOptionExist = true;
@@ -56,6 +57,18 @@ function sendDataToBackground(bCreateFileIfNotExist) {
 
         if (!bOptionExist) {
             dropBoxDown.appendChild(option);
+
+            setSelectedValue(dropBoxDown, textPath.value);
+
+            function setSelectedValue(selectObj, valueToSet) {
+                for (let i = 0; i < selectObj.options.length; i++) {
+                    if (dropBoxDown.options[i].text === valueToSet) {
+                        selectObj.options[i].selected = true;
+                        return;
+                    }
+                }
+            }
+
             // alert("option added");
         }
     };
@@ -77,13 +90,14 @@ function sendDataToBackground(bCreateFileIfNotExist) {
 const button = document.getElementById("buttonID");
 const textarea = document.getElementById("textareaID");
 const textPath = document.getElementById("textPathID");
-const updateButton = document.getElementById("updateOptionListButtonID");
+// const updateButton = document.getElementById("updateOptionListButtonID");
 const dropBoxDown = document.getElementById("dropdown");
 const deleteOptionsButton = document.getElementById("deleteOptionListButtonID");
 
 button.addEventListener("click", () => sendDataToBackground( false));
 
-updateButton.addEventListener("click", () => {
+function updateOptionList() {
+
     const arrayOfOptions = extractOptions("dropdown");
     addLoader();
     const str = textarea.value;
@@ -94,9 +108,15 @@ updateButton.addEventListener("click", () => {
     chrome.runtime.sendMessage({ cmd: "updateOptionScript", body: { text: newStr, textPath: textPath.value, arrayOfOptions: uniqueValues} }, () => {
         // Your callback code here
     });
-});
+
+}
+
+// updateButton.addEventListener("click", () => {
+//     updateOptionList();
+// });
 
 deleteOptionsButton.addEventListener("click", () => {
+    alert('hello worlds');
     chrome.runtime.sendMessage({ cmd: "updateOptionScript", body: {arrayOfOptions: [""]} }, () => {
         // Your callback code here
     });
