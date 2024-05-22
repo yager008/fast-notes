@@ -29,12 +29,22 @@ document.addEventListener('DOMContentLoaded', () => {
             dropBox.innerHTML = '';
 
             // Add options from the array to the dropdown
-            response.value.forEach((optionValue, index) => {
+            // response.value.forEach((optionValue, index) => {
+            //     const option = document.createElement('option');
+            //     option.value = optionValue;
+            //     option.textContent = optionValue;
+            //     dropBox.appendChild(option);
+            // });
+
+            const uniqueValues = [...new Set(response.value)];
+
+            uniqueValues.forEach((optionValue, index) => {
                 const option = document.createElement('option');
                 option.value = optionValue;
                 option.textContent = optionValue;
                 dropBox.appendChild(option);
             });
+
         } else {
             console.error("Error: No valid response received.");
             // Handle error, e.g., display a default message

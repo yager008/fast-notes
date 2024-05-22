@@ -73,9 +73,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
   if (message.cmd === "updateOptionScript") {
     console.log(message.body.arrayOfOptions);
-    console.log("shlepa");
 
-    chrome.storage.local.set({ previousLinks: message.body.arrayOfOptions});
+    let uniqueOptions = [...new Set(message.body.arrayOfOptions)];
+
+    chrome.storage.local.set({ previousLinks: uniqueOptions});
 
     // Return true here to indicate that sendResponse will be called asynchronously
     return true;

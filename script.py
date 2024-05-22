@@ -25,8 +25,8 @@ def main():
 
     second_word = words[1]
     print("second word:", second_word )
-    fileCreateFlag = second_word
-    print("file create flag:", fileCreateFlag)
+    fileCreateIfNotExistFlag = second_word
+    print("file create flag:", fileCreateIfNotExistFlag)
 
     rest_of_words = words[2] if len(words) > 1 else ''
 
@@ -45,8 +45,8 @@ def main():
 #     current_date = datetime.now().strftime("%Y-%m-%d")
 #     file_path = r"E:/Obsidian Vault/" + current_date + ".md"
 
-    if(fileCreateFlag == " true"):
-        print("createFlag == true")
+    if(fileCreateIfNotExistFlag == "false"):
+        print("fileCreateIfNotExistFlag == false")
         try:
             # Check if the file exists by opening in read mode
             with open(file_path, "r", encoding="utf-8"):
@@ -55,7 +55,7 @@ def main():
             print(f"Error: The file '{file_path}' does not exist.")
             sys.exit(2)
     else:
-        print("createFlag == false")
+        print("fileCreateIfNotExistFlag == true")
 
     try:
         # Open the file in append mode
