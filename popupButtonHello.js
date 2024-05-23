@@ -77,12 +77,12 @@ function sendDataToBackground(bCreateFileIfNotExist) {
         getCurrentTabUrl(function (url) {
             let fullURL = new URL(url);
             let siteName = fullURL.hostname;
-            let formattedTextPathValue = textPathValue.replace("{hostname}", siteName + ".md");
+            let formattedTextPathValue = textPathValue.replace("{hostname}", siteName);
             alert(formattedTextPathValue);
             sendMessage(formattedTextPathValue);
         });
     } else {
-        let formattedTextPathValue = textPathValue.replace("{today}", formattedDate + ".md");
+        let formattedTextPathValue = textPathValue.replace("{today}", formattedDate);
         sendMessage(formattedTextPathValue);
     }
 }

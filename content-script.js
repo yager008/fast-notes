@@ -96,7 +96,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         if (video) {
             currentTime = video.currentTime;
             let roundedTime = Math.round(currentTime); // Round the currentTime to the nearest integer
-// Example usage:
             let formattedTime = formatTime(roundedTime);
 
             sendResponse({body: formattedTime});

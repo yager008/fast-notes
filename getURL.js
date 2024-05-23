@@ -19,10 +19,10 @@ getURLButton.addEventListener('click', function() {
     getCurrentTabUrl(function(url) {
         const inputText = document.getElementById('textareaID');
         if (checkboxURL.checked) {
-            inputText.value = "[[" + url + "]] " + inputText.value;
+            inputText.value = inputText.value + "\n" + "[[" + url + "]] ";
         }
         else {
-            inputText.value = url + " " + inputText.value;
+            inputText.value = inputText.value + "\n" + url;
         }
     });
 });

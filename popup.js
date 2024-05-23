@@ -62,17 +62,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const removeOptionButton = document.getElementById("removeOptionButtonID");
     removeOptionButton.addEventListener('click', function() {
-        const curTextValue = document.getElementById("textPathID").value;
+        const textPath = document.getElementById("textPathID");
         let select = document.getElementById("dropdown");
+        const selectedOptionText = select.options[select.selectedIndex].text;
+        //alert(selectedOptionText);
+
         let bTest = false;
         let alloptionsstring = "";
+
+        // alert("options length: " + select.options.length);
 
         for (let i = 0; i < select.options.length; i++) {
             alloptionsstring = alloptionsstring + " id: " + i + " " + select.options[i].value;
         }
 
         for (let i = 0; i < select.options.length; i++) {
-            if (select.options[i].value === curTextValue) {
+            if (select.options[i].value === selectedOptionText) {
                 select.remove(i);
                 bTest = true;
                 break;
@@ -80,10 +85,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if(!bTest) {
-            alert ("no found" + "curTextValue: " + curTextValue + "./select.options[0]: " + select.options[0]);
+            // alert ("no found" + "curTextValue: " + selectedOptionText + "./select.options[0]: " + select.options[0]);
         }
 
         updateOptionList();
+
+        textPath.value = select.options[select.selectedIndex].text;
+
         return true;
     });
 
