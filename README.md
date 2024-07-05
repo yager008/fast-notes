@@ -6,7 +6,7 @@ To enable this extension:
 3. set up chrome extension in chrome browser and set id of extension in ping.json allowed origins 
 like this: "chrome-extension://'extension ID'/"
 
-Nice features:
+Cool features:
 1. keywords {today} and {hostname}:
 usage:
 C:/Users/yaro_/{today}.txt => C:/Users/yaro_/2024-07-06.txt
