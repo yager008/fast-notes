@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const textareavalue = document.getElementById("textareaID");
     const dropBox = document.getElementById("dropdown");
     const removeTextCheckbox= document.getElementById("checkboxID");
-    const textarea = document.getElementById('myTextarea');
 
     textareavalue.addEventListener('input', () => {
             chrome.runtime.sendMessage({cmd: "textAreaUpdated", body: {text: textareavalue.value}}, (response) => {
@@ -16,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     chrome.runtime.sendMessage({cmd: "popupOpened", body: {}}, (response) => {
-        const El = document.getElementById("amogus");
+        const El = document.getElementById("modifiedDiv");
         if (response && response.value !== undefined && Array.isArray(response.value)) {
 
             textareavalue.innerHTML = response.textAreaBuffer;
@@ -25,16 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             textPathContent.value = response.textPathBuffer;
 
-            // Clear existing options in the dropdown
             dropBox.innerHTML = '';
-
-            // Add options from the array to the dropdown
-            // response.value.forEach((optionValue, index) => {
-            //     const option = document.createElement('option');
-            //     option.value = optionValue;
-            //     option.textContent = optionValue;
-            //     dropBox.appendChild(option);
-            // });
 
             const uniqueValues = [...new Set(response.value)];
 
@@ -94,24 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return true;
     });
-
-    // document.getElementById('removeOptionButton').addEventListener('click', function() {
-    //     const curTextValue = document.getElementById("textPathID").value;
-    //     let select = document.getElementById("dropdown");
-    //     let bTest = false;
-    //
-    //     for (let i = 0; i < select.options.length; i++) {
-    //         if (select.options[i].value === curTextValue) {
-    //             select.remove(i);
-    //             bTest = true;
-    //             break;
-    //         }
-    //     }
-    //
-    //     if (!bTest) {
-    //         alert("not found");
-    //     }
-    // });
 
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         if (message.cmd === "animationSuccess") {

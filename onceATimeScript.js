@@ -33,9 +33,6 @@ function addOverlay() {
 
     overlay.appendChild(innerText);
 
-    // Add content to the overlay
-
-    // Append the overlay to the body
     document.body.appendChild(overlay);
 } addOverlay();
 

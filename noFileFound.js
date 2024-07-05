@@ -14,6 +14,4 @@ noButton.addEventListener("click", () => {
 yesButton.addEventListener("click", () => {
     sendDataToBackground(true);
     dialog.close("");
-    // chrome.runtime.sendMessage({cmd: "executeScript", body: {text: formattedStr, textPath: formattedTextPathValue, arrayOfOptions: arrayOfOptions}}, () => {
-    // });
 });

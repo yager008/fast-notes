@@ -1,6 +1,5 @@
 const getTimeButton = document.getElementById("getVideoTime");
 const timeWatchedElement = document.getElementById("timeWatched");
-// const textTypeArea = document.getElementById("textareaID");
 
 getTimeButton.addEventListener('click', function() {
     chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
