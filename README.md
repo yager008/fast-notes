@@ -14,3 +14,8 @@ C:/Users/yaro_/{hostname}.txt => C:/Users/yaro_/www.youtube.com.txt
 2. Create file if does not exist dialog box
 3. Video timestamps (if does not work, try to reload chrome)
 4. obsidian auto brackets checkbox
+
+![Alt text](./imgs/FastNotes2.jpg)
+![Alt text](./imgs/FastNotes3.jpg)
+![Alt text](./imgs/FastNotes4.jpg)
+![Alt text](./imgs/FastNotes5.jpg)
